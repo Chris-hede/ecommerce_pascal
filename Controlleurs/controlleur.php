@@ -1700,6 +1700,76 @@ switch ($p) {
 		      require("Vues/backend/liste_articles.php");
 		break;
 
+	case 'delete_article_run': 
+		$id=$_POST['id'];
+
+		$famille = new Ec_familleManager($db);
+
+		$result_query = $famille->deleteRow("DELETE FROM ec_article WHERE article_id=?",array($id));
+
+		
+
+		
+
+		echo json_encode($id);
+		break;
+
+	case 'many_article_deletes':
+		
+				$famille = new Ec_familleManager($db);
+
+
+				foreach($_POST['id'] as $id){
+
+						$result_query = $famille->deleteRow("DELETE FROM ec_article WHERE article_id=?",array($id));
+				}
+
+				$data['message'] = "ok";
+				
+				echo json_encode($data);
+		break;
+
+	case 'aperçu_article': 
+
+		$famille = new Ec_familleManager($db);
+
+		
+
+		   if(isset($_GET["article_id"])){
+
+			    $article_id = (int)$_GET["article_id"];
+
+				$result_query1 = $famille->getRow("SELECT * FROM ec_article WHERE article_id=?",array($article_id));
+
+				if($result_query1){
+
+
+
+					$result_query2 = $famille->getRow("SELECT * FROM ec_categorie WHERE categorie_id=?",array($result_query1->categorie_id));
+
+					$result_query3 = $famille->getRows("SELECT * FROM ec_image WHERE article_id=?",array($result_query1->article_id));
+
+
+					require("Vues/backend/aperçu_article.php");
+
+
+				}else{
+
+					header("Location:?p=liste_articles");
+					  
+				}
+
+
+
+				
+		   }else{
+
+			     header("Location:?p=liste_articles");
+		   }
+
+		     
+		break;
+
 	default:
 
 		   require("Vues/frontend/index.php");

@@ -117,7 +117,7 @@
                                                         }
 
                                                     }
-                                                    
+
 
 
                                                         // var_dump(end($taille_pointure_array));
@@ -149,7 +149,7 @@
                                                         
                                                         <td style="text-align:center;vertical-align:middle;">
 
-                                                        <button data-voir_id="<?=$article->article_id;?>" data-libelle="<?=$article->article_libelle;?>" data-description="<?=$article->article_description;?>" data-toggle="modal" data-target="#voir_famille" class="btn btn-sm voir" data-toggle="tooltip" data-placement="left" title="Voir"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                                        <button data-voir_id="<?=$article->article_id;?>" data-libelle="<?=$article->article_libelle;?>" data-description="<?=$article->article_description;?>" data-toggle="modal"  class="btn btn-sm voir" data-toggle="tooltip" data-placement="left" title="Voir"><i class="fa fa-eye" aria-hidden="true"></i></button>
 
 
                                                             <button data-modifier_id="<?=$article->article_id;?>" data-libelle="<?=$article->article_libelle;?>" data-description="<?=$article->article_description;?>"  data-toggle="modal" data-target="#modifier_famille" class="btn btn-sm modifier" data-toggle="tooltip" data-placement="left" title="Mettre à Jour"><i class="fa fa-pencil" aria-hidden="true"></i></button>
@@ -720,7 +720,7 @@
                                     
 
                                                         swal({
-                                                            title: 'voulez vous vraiment supprimer cette famille ?',
+                                                            title: 'voulez vous vraiment supprimer cet article ?',
                                                             text: 'cette operation est irreversible!',
                                                             type: 'warning',
                                                             showCancelButton: true,
@@ -735,7 +735,7 @@
 
                                                              $.ajax({
 
-                                                                url:"?p=delete_famille_run",
+                                                                url:"?p=delete_article_run",
                                                                 method:"POST",
                                                                 dataType:"JSON",
                                                                 data:{id:id},
@@ -770,17 +770,20 @@
           var id = $(this).attr("data-voir_id");
 
 
-          var famille_libelle = $(this).attr("data-libelle");
-          var famille_description = $(this).attr("data-description");
-          var famille_image = $(this).attr("data-image");
+           window.open("?p=aperçu_article&article_id="+id,"_self");
 
 
-          $(".voir_modal_famille_libelle").text(famille_libelle);
-          $(".voir_modal_famille_description").text(famille_description);
+        //   var famille_libelle = $(this).attr("data-libelle");
+        //   var famille_description = $(this).attr("data-description");
+        //   var famille_image = $(this).attr("data-image");
 
-          var src_value = "assets/images/familles/"+famille_image;
 
-          $(".voir_modal_famille_image").attr("src",src_value);
+        //   $(".voir_modal_famille_libelle").text(famille_libelle);
+        //   $(".voir_modal_famille_description").text(famille_description);
+
+        //   var src_value = "assets/images/familles/"+famille_image;
+
+        //   $(".voir_modal_famille_image").attr("src",src_value);
 
 
 
@@ -1123,7 +1126,7 @@
 
                                                              $.ajax({
 
-                                                                url:"?p=many_deletes",
+                                                                url:"?p=many_article_deletes",
                                                                 method:"POST",
                                                                 dataType:"JSON",
                                                                 data:{id:id},
@@ -1138,7 +1141,7 @@
                                                                     });
 
 
-                                                                    swal('Supprimé !', 'Elle(s) ont été suprimées avec succès', 'success')
+                                                                    swal('Supprimé !', 'il(s) a (ont) été suprimé(s) avec succès', 'success')
 
 
                                                                 }
