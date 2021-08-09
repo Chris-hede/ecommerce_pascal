@@ -72,6 +72,59 @@
 
                                                         $query_result3 = $famille->getRow("SELECT * FROM ec_categorie WHERE categorie_id=?",array($article->categorie_id));
 
+                                                        $query_result4 = $famille->getRows("SELECT * FROM ec_parametre_article WHERE article_id=?",array($article->article_id));
+
+                                                        
+
+                                                        
+                                                        
+                                                        // var_dump($query_result4);
+
+                                                        // echo "<pre>";
+                                                        // print_r($query_result4);
+                                                        // echo "</pre>";
+
+                                                         $couleur_array = [];
+                                                         $taille_pointure_array =[];
+
+                                                         
+
+
+                                                        if(isset($query_result4)){
+
+
+                                                        foreach($query_result4 as $param){
+
+
+                                                            $couleur_array[$param->parametre_article_couleur]=0;
+                                                            $taille_pointure_array[$param->parametre_article_taille_pointure]=0;
+                                                        }
+
+                                                       
+
+
+                                                        foreach($query_result4 as $param){ 
+
+
+                                                            
+                                                             
+                                                            
+                                                              $couleur_array[$param->parametre_article_couleur]+=$param->parametre_article_quantite;
+
+                                                              $taille_pointure_array[$param->parametre_article_taille_pointure]+=$param->parametre_article_quantite;
+                                                        
+                                                        
+                                                        }
+
+                                                    }
+
+
+                                                        // var_dump(end($taille_pointure_array));
+
+                                                        
+
+
+
                                                         
 
                                                         
@@ -88,8 +141,8 @@
                                                         <td style="text-align:center;vertical-align:middle;"><?=$article->article_libelle;?></td>
                                                         <td style="text-align:center;vertical-align:middle;"><?=$query_result3->categorie_libelle;?></td>
                                                         <td style="text-align:center;vertical-align:middle;"><?=$article->article_prix;?></td>
-                                                        <td style="text-align:center;vertical-align:middle;"><?=$article->article_prix;?></td>
-                                                        <td style="text-align:center;vertical-align:middle;"><?=$article->article_prix;?></td>
+                                                        <td style="text-align:center;vertical-align:middle;"><?php foreach($couleur_array as $key => $param){ echo $key.' : '.$param; if($key!=array_key_last($couleur_array)){ echo ' , ';} } ?></td>
+                                                        <td style="text-align:center;vertical-align:middle;"><?php foreach($taille_pointure_array as $key => $param){ echo $key.' : '.$param; if($key!=array_key_last($taille_pointure_array)){ echo ' , ';} } ?></td>
                                                      
                                                         <td style="text-align:center;vertical-align:middle;"><?=$article->article_qtestock;?></td>
                                                         
@@ -424,7 +477,7 @@
 
                 $(".jaichangeça").click(function(){
 
-                    
+
 
                     // .ajouter_famille_button
 
